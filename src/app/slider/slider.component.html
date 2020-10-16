@@ -1,0 +1,53 @@
+<div class="main-container" fxLayoutAlign="center center">
+  <div
+    class="sub-container mat-elevation-z8"
+    fxLayout="column"
+    fxLayoutAlign="center"
+  >
+    <mat-carousel
+      timings="250ms ease-in"
+      color="primary"
+      maxWidth="auto"
+      proportion="35"
+      slides="5"
+      [loop]="true"
+      [hideArrows]="false"
+      [hideIndicators]="false"
+      [useKeyboard]="true"
+      [useMouseWheel]="false"
+      orientation="ltr"
+    >
+      <mat-carousel-slide *ngFor="let item of service.getSliders() | async">
+        <div
+          fxLayout="column"
+          fxLayoutAlign="start start"
+          [style]="getSlideStype(item)"
+        >
+          <div class="step-left header text-main">
+            {{ item.events[0].name.ru }}
+          </div>
+
+          <div class="step-left datetime">
+            {{
+              item.events[0].NearestSchedule.begin
+                ? item.events[0].NearestSchedule.begin
+                : ""
+            }}
+          </div>
+
+          <div class="step-left actions">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="
+                showMore(item.events[0].name.ru, item.events[0].description.ru)
+              "
+            >
+              Information
+            </button>
+          </div>
+        </div>
+      </mat-carousel-slide>
+    </mat-carousel>
+  </div>
+</div>
